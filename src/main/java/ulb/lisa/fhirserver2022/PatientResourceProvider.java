@@ -35,14 +35,20 @@ public class PatientResourceProvider implements IResourceProvider {
     }
     
     // Read method will be accessed by:
-    // /FHIRServer/Patient/{id}    
-    @Read()
+    // /FHIRServer/Patient/{id}  
+//si on recoit un une demande patient avec un certain id, 
+//il va montrer les info juste en dessous
+    @Read()//on va utiliser ce read
     public Patient getResourceById(@IdParam IIdType pid){
-        return FHIRServices.getPatient(patientCtrl.findPatient(Integer.valueOf(pid.getIdPart())));
+//le pid en param n'est pas un string ou integer, il faut récupérer le getidpart
+//car il recoit le patient/1 et pas juste l'entier donc il faut juste prendre l'id
+        return FHIRServices.getPatient(patientCtrl.findPatient(Integer.valueOf(pid.getIdPart()))); //findpatient dans le controller
     }
     
     // Search method will be accessed by:
     // /FHIRServer/Patient?family={name}
+//on doit rechercher avec un paramètre requis
+//on met le parametre family en recherche
     @Search()
     public List<Patient> getPatient(@RequiredParam(name = Patient.SP_FAMILY) StringParam name) { 
         return FHIRServices.getPatients(patientCtrl.findByFamilyName(name.getValue()));

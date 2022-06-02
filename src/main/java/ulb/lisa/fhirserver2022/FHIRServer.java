@@ -11,6 +11,8 @@ import ca.uhn.fhir.rest.server.IResourceProvider;
 import ca.uhn.fhir.rest.server.RestfulServer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
@@ -30,13 +32,18 @@ public class FHIRServer extends RestfulServer {
      *
      * @throws javax.servlet.ServletException
      */
-    @Override
     protected void initialize() throws ServletException {
         /*
        * The servlet defines any number of resource providers, and
        * configures itself to use them by calling
        * setResourceProviders()
          */
+                try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PatientResourceProvider.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         this.setDefaultResponseEncoding(EncodingEnum.JSON);
 
         String serverBaseUrl = "http://localhost:8080/FHIRServer2022/";
@@ -45,6 +52,10 @@ public class FHIRServer extends RestfulServer {
         List<IResourceProvider> resourceProviders = new ArrayList();
         resourceProviders.add(new PatientResourceProvider());
         setResourceProviders(resourceProviders);
+    }
+
+    private void setDefaultResponseEncoding(EncodingEnum encodingEnum) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

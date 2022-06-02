@@ -18,7 +18,7 @@
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
-            <version>6.0</version>
+            <version>7.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -39,7 +39,8 @@
         <dependency>
             <groupId>ulb.lisa</groupId>
             <artifactId>infoh400-labs2022</artifactId>
-            <version>1.0-SNAPSHOT</version>            
+            <version>1.0-SNAPSHOT</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
 
